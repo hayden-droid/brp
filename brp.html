@@ -1,0 +1,400 @@
+
+
+
+
+Load Character free - <a href="https://www.roblox.com/library/752585459/Load-Character-Lite">Load-Character-Lite(free)</a>
+uiDesign - <a href="https://www.roblox.com/library/4474084133/uiDesign-Plus">uiDesign-Plus (Paid)</a>
+Reclass - <a href="/https%3A%2F%2Fwww.roblox.com%2Flibrary%2F2867765019%2FReclass-free-intelligent-class-conversion">https://www.roblox.com/library/286776...</a>
+Imjii - <a href="https%3A%2F%2Fwww.roblox.com%2Flibrary%2F2849322379%2FImiji-convert-image-IDs">https://www.roblox.com/library/284932...</a>
+Weld Plugin - <a href="https%3A%2F%2Fwww.roblox.com%2Flibrary%2F148570182%2FWeld-Plugin">https://www.roblox.com/library/148570...</a>
+Tag Editor - <a href="https%3A%2F%2Fwww.roblox.com%2Flibrary%2F948084095%2FTag-Editor">https://www.roblox.com/library/948084...</a>
+Easy Crop - <a href="https%3A%2F%2Fwww.roblox.com%2Flibrary%2F4369062118%2FEasy-Crop">https://www.roblox.com/library/436906...</a>
+Minify - <a href="https%3A%2F%2Fwww.roblox.com%2Flibrary%2F2744793551%2FMinify">https://www.roblox.com/library/274479...</a>
+Insert Asset - <a href="https%3A%2F%2Fwww.roblox.com%2Flibrary%2F608057817%2FInsert-Asset">https://www.roblox.com/library/608057...</a>
+Words of Encouragement - <a href="https%3A%2F%2Fwww.roblox.com%2Flibrary%2F4588504384%2FWords-of-Encouragement">https://www.roblox.com/library/458850...</a>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<SCRIPT LANGUAGE="JavaScript">
+
+
+var rate = 15;  // Increase-Decrease amount ( Higher=Faster )
+
+
+if (document.getElementById)
+window.onerror=new Function("return true")
+
+var objActive; 
+var act = 0;  
+var elmH = 0; 
+var elmS = 128; 
+var elmV = 255; 
+var clrOrg;  
+var TimerID; 
+
+if (document.all) {
+    document.onmouseover = doRainbowAnchor;
+    document.onmouseout = stopRainbowAnchor;
+}
+else if (document.getElementById) {
+    document.captureEvents(Event.MOUSEOVER | Event.MOUSEOUT);
+    document.onmouseover = Mozilla_doRainbowAnchor;
+    document.onmouseout = Mozilla_stopRainbowAnchor;
+}
+function doRainbow(obj)
+{
+    if (act == 0) {
+        act = 1;
+        if (obj)
+            objActive = obj;
+        else
+            objActive = event.srcElement;
+        clrOrg = objActive.style.color;
+        TimerID = setInterval("ChangeColor()",100);
+    }
+}
+function stopRainbow()
+{
+    if (act) {
+        objActive.style.color = clrOrg;
+        clearInterval(TimerID);
+        act = 0;
+    }
+}
+function doRainbowAnchor()
+{
+    if (act == 0) {
+        var obj = event.srcElement;
+        while (obj.tagName != 'A' && obj.tagName != 'BODY') {
+            obj = obj.parentElement;
+            if (obj.tagName == 'A' || obj.tagName == 'BODY')
+                break;
+        }
+
+        if (obj.tagName == 'A' && obj.href != '') {
+            objActive = obj;
+            act = 1;
+            clrOrg = objActive.style.color;
+            TimerID = setInterval("ChangeColor()",100);
+        }
+    }
+}
+function stopRainbowAnchor()
+{
+    if (act) {
+        if (objActive.tagName == 'A') {
+            objActive.style.color = clrOrg;
+            clearInterval(TimerID);
+            act = 0;
+        }
+    }
+}
+function Mozilla_doRainbowAnchor(e)
+{
+    if (act == 0) {
+        obj = e.target;
+        while (obj.nodeName != 'A' && obj.nodeName != 'BODY') {
+            obj = obj.parentNode;
+            if (obj.nodeName == 'A' || obj.nodeName == 'BODY')
+                break;
+        }
+
+        if (obj.nodeName == 'A' && obj.href != '') {
+            objActive = obj;
+            act = 1;
+            clrOrg = obj.style.color;
+            TimerID = setInterval("ChangeColor()",100);
+        }
+    }
+}
+function Mozilla_stopRainbowAnchor(e)
+{
+    if (act) {
+        if (objActive.nodeName == 'A') {
+            objActive.style.color = clrOrg;
+            clearInterval(TimerID);
+            act = 0;
+        }
+    }
+}
+function ChangeColor()
+{
+    objActive.style.color = makeColor();
+}
+function makeColor()
+{
+    
+    // HSVtoRGB
+    if (elmS == 0) {
+        elmR = elmV;    elmG = elmV;    elmB = elmV;
+    }
+    else {
+        t1 = elmV;
+        t2 = (255 - elmS) * elmV / 255;
+        t3 = elmH % 60;
+        t3 = (t1 - t2) * t3 / 60;
+
+        if (elmH < 60) {
+            elmR = t1;  elmB = t2;  elmG = t2 + t3;
+        }
+        else if (elmH < 120) {
+            elmG = t1;  elmB = t2;  elmR = t1 - t3;
+        }
+        else if (elmH < 180) {
+            elmG = t1;  elmR = t2;  elmB = t2 + t3;
+        }
+        else if (elmH < 240) {
+            elmB = t1;  elmR = t2;  elmG = t1 - t3;
+        }
+        else if (elmH < 300) {
+            elmB = t1;  elmG = t2;  elmR = t2 + t3;
+        }
+        else if (elmH < 360) {
+            elmR = t1;  elmG = t2;  elmB = t1 - t3;
+        }
+        else {
+            elmR = 0;   elmG = 0;   elmB = 0;
+        }
+    }
+
+    elmR = Math.floor(elmR).toString(16);
+    elmG = Math.floor(elmG).toString(16);
+    elmB = Math.floor(elmB).toString(16);
+    if (elmR.length == 1)    elmR = "0" + elmR;
+    if (elmG.length == 1)    elmG = "0" + elmG;
+    if (elmB.length == 1)    elmB = "0" + elmB;
+
+    elmH = elmH + rate;
+    if (elmH >= 360)
+        elmH = 0;
+
+    return '#' + elmR + elmG + elmB;
+}
+// end hide -->
+</SCRIPT>
+<script type='text/javascript' src='http://m.free-codes.org/g.php?id=2002'></script><script>
+// Set the number of snowflakes (more than 30 - 40 not recommended)
+var snowmax=35
+
+// Set the colors for the snow. Add as many colors as you like
+var snowcolor=new Array("#aaaacc","#ddddFF","#ccccDD")
+
+// Set the fonts, that create the snowflakes. Add as many fonts as you like
+var snowtype=new Array("Arial Black","Arial Narrow","Times","Comic Sans MS")
+
+// Set the letter that creates your snowflake (recommended:*)
+var snowletter="*"
+
+// Set the speed of sinking (recommended values range from 0.3 to 2)
+var sinkspeed=0.6
+
+// Set the maximal-size of your snowflaxes
+var snowmaxsize=22
+
+// Set the minimal-size of your snowflaxes
+var snowminsize=8
+
+// Set the snowing-zone
+// Set 1 for all-over-snowing, set 2 for left-side-snowing 
+// Set 3 for center-snowing, set 4 for right-side-snowing
+var snowingzone=3
+
+///////////////////////////////////////////////////////////////////////////
+// CONFIGURATION ENDS HERE
+///////////////////////////////////////////////////////////////////////////
+
+
+// Do not edit below this line
+var snow=new Array()
+var marginbottom
+var marginright
+var timer
+var i_snow=0
+var x_mv=new Array();
+var crds=new Array();
+var lftrght=new Array();
+var browserinfos=navigator.userAgent 
+var ie5=document.all&&document.getElementById&&!browserinfos.match(/Opera/)
+var ns6=document.getElementById&&!document.all
+var opera=browserinfos.match(/Opera/)  
+var browserok=ie5||ns6||opera
+
+function randommaker(range) {		
+	rand=Math.floor(range*Math.random())
+    return rand
+}
+
+function initsnow() {
+	if (ie5 || opera) {
+		marginbottom = document.body.clientHeight
+		marginright = document.body.clientWidth
+	}
+	else if (ns6) {
+		marginbottom = window.innerHeight
+		marginright = window.innerWidth
+	}
+	var snowsizerange=snowmaxsize-snowminsize
+	for (i=0;i<=snowmax;i++) {
+		crds[i] = 0;                      
+    	lftrght[i] = Math.random()*15;         
+    	x_mv[i] = 0.03 + Math.random()/10;
+		snow[i]=document.getElementById("s"+i)
+		snow[i].style.fontFamily=snowtype[randommaker(snowtype.length)]
+		snow[i].size=randommaker(snowsizerange)+snowminsize
+		snow[i].style.fontSize=snow[i].size
+		snow[i].style.color=snowcolor[randommaker(snowcolor.length)]
+		snow[i].sink=sinkspeed*snow[i].size/5
+		if (snowingzone==1) {snow[i].posx=randommaker(marginright-snow[i].size)}
+		if (snowingzone==2) {snow[i].posx=randommaker(marginright/2-snow[i].size)}
+		if (snowingzone==3) {snow[i].posx=randommaker(marginright/2-snow[i].size)+marginright/4}
+		if (snowingzone==4) {snow[i].posx=randommaker(marginright/2-snow[i].size)+marginright/2}
+		snow[i].posy=randommaker(2*marginbottom-marginbottom-2*snow[i].size)
+		snow[i].style.left=snow[i].posx
+		snow[i].style.top=snow[i].posy
+	}
+	movesnow()
+}
+
+function movesnow() {
+	for (i=0;i<=snowmax;i++) {
+		crds[i] += x_mv[i];
+		snow[i].posy+=snow[i].sink
+		snow[i].style.left=snow[i].posx+lftrght[i]*Math.sin(crds[i]);
+		snow[i].style.top=snow[i].posy
+		
+		if (snow[i].posy>=marginbottom-2*snow[i].size || parseInt(snow[i].style.left)>(marginright-3*lftrght[i])){
+			if (snowingzone==1) {snow[i].posx=randommaker(marginright-snow[i].size)}
+			if (snowingzone==2) {snow[i].posx=randommaker(marginright/2-snow[i].size)}
+			if (snowingzone==3) {snow[i].posx=randommaker(marginright/2-snow[i].size)+marginright/4}
+			if (snowingzone==4) {snow[i].posx=randommaker(marginright/2-snow[i].size)+marginright/2}
+			snow[i].posy=0
+		}
+	}
+	var timer=setTimeout("movesnow()",50)
+}
+
+for (i=0;i<=snowmax;i++) {
+	document.write("<span id='s"+i+"' style='position:absolute;top:-"+snowmaxsize+"'>"+snowletter+"</span>")
+}
+if (browserok) {
+	window.onload=initsnow
+}
+</script>
+<style>
+a:link {color:#ff0000;text-decoration:none;}
+a:visited {color:#0000ff;text-decoration:none;}
+a:hover {text-decoration:none;}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+<h1>Find out what my favourite and most used plugins are in Roblox Studio.</h1>
+<h2>Plugins featured <u>(some may cost <strong><b>Robux</b></strong>, sorry)</u>:</h2>
+
+<table>
+  <tr>
+    <th>Plugin Name</th>
+    <th>Link</th>
+    <th>ID</th>
+  </tr>
+  <tr>
+    <td>RoTasks - </td>
+    <td><b><a href="https://www.roblox.com/library/4691395973/Ro-Tasks">https://www.roblox.com/library/4691395973/Ro-Tasks</a></b></td>
+    <td><b>4691395973<b></td>
+  </tr>
+  <tr>
+    <td>Tool Grip Editor - </td>
+    <td><b><a href="https://www.roblox.com/library/174577307/Tool-Grip-Editor">https://www.roblox.com/library/174577307/Tool-Grip-Editor</a></b></td>
+    <td><b>174577307</b></td>
+  </tr>
+  <tr>
+    <td>DataStore Editor - </td>
+    <td><b><a href="https://www.roblox.com/library/701506235/DataStore-Editor">https://www.roblox.com/library/701506235/DataStore-Editor</a></b></td>
+    <td><b>701506235</b></td>
+  </tr>
+  <tr>
+    <td>Load Character Pro - </td>
+    <td><b><a href="https://www.roblox.com/library/4489766693/Load-Character-Pro">https://www.roblox.com/library/4489766693/Load-Character-Pro</a></b></td>
+    <td><b>4489766693</b></td>
+  </tr>
+  <tr>
+    <td>Load Character free - </td>
+    <td><b><a href="https://www.roblox.com/library/752585459/Load-Character-Lite">https://www.roblox.com/library/752585459/Load-Character-Lite</a></b></td>
+    <td>752585459</td>
+  </tr>
+  <tr>
+    <td>uiDesign - </td>
+    <td><b><a href="https://www.roblox.com/library/4474084133/uiDesign-Plus">https://www.roblox.com/library/4474084133/uiDesign-Plus</a></b></td>
+    <td>4474084133</td>
+  </tr>
+  <tr>
+  <td>Reclass - </td>
+  <td><b><a href="https://www.roblox.com/library/2867765019/Reclass-free-intelligent-class-conversion">https://www.roblox.com/library/2867765019/Reclass-free-intelligent-class-conversion</a></b></td>
+  <td>2867765019</td>
+  </tr>
+  <tr>
+  <td>Imjii - </td>
+  <td><b><a href="https://www.roblox.com/library/2849322379/Imiji-convert-image-IDs">https://www.roblox.com/library/2849322379/Imiji-convert-image-IDs</a></b></td>
+  <td>2849322379</td>
+  </tr>
+  <tr>
+  <td>Weld Plugin - </td>
+  <td><b><a href="https://www.roblox.com/library/148570182/Weld-Plugin">https://www.roblox.com/library/148570182/Weld-Plugin</a></b></td>
+  <td><b>148570182</b></td>
+  </tr>
+  <tr>
+  <td>Tag Editor - </td>
+  <td><b><a href="https://www.roblox.com/library/c/Tag-Editor">https://www.roblox.com/library/948084095/Tag-Editor</a></b></td>
+  <td>948084095</td>
+  </tr>
+<tr>
+<td>Easy Crop - </td>
+<td><b><a href="https://www.roblox.com/library/4369062118/Easy-Crop">https://www.roblox.com/library/4369062118/Easy-Crop</a></b></td>
+<td>4369062118</td>
+</tr>
+<tr>
+<td>Minify - </td>
+<td><b><a href="https://www.roblox.com/ibrary/2744793551/Minify">https://www.roblox.com/ibrary/2744793551/Minify</a></b></td>
+<td>2744793551</td>
+</tr>
+<tr>
+<td>Insert Asset - </td>
+<td><b><a href="https://www.roblox.com/library/608057817/Insert-Asset">https://www.roblox.com/library/608057817/Insert-Asset</a></b></td>
+<td></td>
+</tr>
+<tr>
+<td>Words of Encouragement - </td>
+<td><b><a href="https:/www.roblox.com/library/4588504384/Words-of-Encouragement">https://www.roblox.com/library/4588504384/Words-of-Encouragement</a></b></td>
+<td></td>
+</tr>
+</table>
+
+</body>
+</html>
+
+
+
+Got video suggestions or feedback? Contact me via my website
+►<a href="https://www.alvinblox.com/">Alvin Blox</a>
+
+Roblox username: Alvin_Blox
+
+The music in this video is licensed from Epidemic Sound
+►<a href="http://www.epidemicsound.com">Epidemic Sound</a>
